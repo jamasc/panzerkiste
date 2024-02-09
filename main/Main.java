@@ -9,7 +9,7 @@ public class Main {
 
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setTitle("panzerkiste");
 		
 		Game game = new Game();

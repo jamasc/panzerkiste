@@ -11,6 +11,9 @@ public class Panzer {
 	public int positionX, positionY;
 	public int speed, speedX, speedY;
 	
+	public int tankSize = 40;
+	public int circSize = 30;
+	
 	public Panzer(Game game) {
 		this.game = game;
 	}

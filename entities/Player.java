@@ -39,15 +39,16 @@ public class Player extends Panzer{
 	
 	public void draw(Graphics2D g2) {
 		AffineTransform old = g2.getTransform();
-		if(Math.abs(keyH.xMove) + Math.abs(keyH.yMove) == 2) {
+		if(xySum == 2) {
 			double rotationAngleInRadians = Math.toRadians(45); // Example rotation angle (45 degrees)
-			g2.rotate(rotationAngleInRadians, positionX + game.tileSize / 2, positionY + game.tileSize / 2);
-			g2.setColor(Color.GREEN);
-			g2.fillRect(positionX, positionY, game.tileSize, game.tileSize);
-		}else {
-			g2.setColor(Color.GREEN);
-			g2.fillRect(positionX, positionY, game.tileSize, game.tileSize);
-			g2.setTransform(old);
+			g2.rotate(rotationAngleInRadians, positionX + tankSize / 2, positionY + tankSize / 2);
 		}
+		g2.setColor(Color.GREEN);
+		g2.fillRect(positionX, positionY, tankSize, tankSize);
+		g2.setTransform(old);
+		int circleX = positionX + (tankSize - circSize) / 2;
+		int circleY = positionY + (tankSize - circSize) / 2;
+		g2.setColor(Color.RED);
+		g2.fillOval(circleX, circleY, circSize, circSize);
 	}
 }

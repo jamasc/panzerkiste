@@ -14,7 +14,6 @@ public class KeyHandler implements KeyListener{
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		//weis nicht wie man des benutzt
 	}
 
 	@Override
