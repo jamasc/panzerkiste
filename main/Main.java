@@ -28,7 +28,7 @@ public class Main {
 		Helper h = new Helper();
 	//	Cursor cursor = h.invisibleCursor();
 		Cursor cursor = h.getCrossHairs();
-        window.setCursor(cursor);
+        	window.setCursor(cursor);
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
