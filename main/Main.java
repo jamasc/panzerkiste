@@ -1,5 +1,12 @@
 package main;
 
+import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Timer;
+
 import javax.swing.JFrame;
 
 public class Main {
@@ -16,6 +23,12 @@ public class Main {
 		window.add(game);
 		
 		window.pack();
+		
+		//CURSOR
+		Helper h = new Helper();
+	//	Cursor cursor = h.invisibleCursor();
+		Cursor cursor = h.getCrossHairs();
+        window.setCursor(cursor);
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
