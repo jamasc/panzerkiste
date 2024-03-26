@@ -3,7 +3,6 @@ package main;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-import entities.Aim;
 import entities.Panzer;
 
 public class MouseHandler implements MouseMotionListener{
