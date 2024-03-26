@@ -10,6 +10,10 @@ public class KeyHandler implements KeyListener{
 	Panzer panzer;
 	float normX, normY;
 	int up, down, left, right;
+	private boolean wPressed = false;
+	private boolean sPressed = false;
+	private boolean aPressed = false;
+	private boolean dPressed = false;
 	
 	public KeyHandler(Game game, Panzer panzer) {
 		this.game = game;
@@ -23,16 +27,20 @@ public class KeyHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		
-		if(code == KeyEvent.VK_W) {
+		if(code == KeyEvent.VK_W && !wPressed) {
+			wPressed = true;
 			up = -1;
 		}
-		if(code == KeyEvent.VK_S) {
+		if(code == KeyEvent.VK_S && !sPressed) {
+			sPressed = true;
 			down = 1;
 		}
-		if(code == KeyEvent.VK_A) {
+		if(code == KeyEvent.VK_A && !aPressed) {
+			aPressed = true;
 			left = -1;
 		}
-		if(code == KeyEvent.VK_D) {
+		if(code == KeyEvent.VK_D && !dPressed) {
+			dPressed = true;
 			right = 1;
 		}
 		double magnitude = Math.sqrt(Math.abs(left + right) + Math.abs(up + down));
@@ -52,15 +60,19 @@ public class KeyHandler implements KeyListener{
 		int code = e.getKeyCode();
 
 		if(code == KeyEvent.VK_W) {
+			wPressed = false;
 			up = 0;
 		}
 		if(code == KeyEvent.VK_S) {
+			sPressed = false;
 			down = 0;
 		}
 		if(code == KeyEvent.VK_A) {
+			aPressed = false;
 			left = 0;
 		}
 		if(code == KeyEvent.VK_D) {
+			dPressed = false;
 			right = 0;
 		}
 		double magnitude = Math.sqrt(Math.abs(left + right) + Math.abs(up + down));

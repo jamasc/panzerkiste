@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Cursor;
+
 import javax.swing.JFrame;
 
 public class Main {
@@ -16,6 +18,11 @@ public class Main {
 		window.add(game);
 		
 		window.pack();
+		
+		//CURSOR
+		Helper h = new Helper();
+		Cursor cursor = h.getCrossHairs();
+		window.setCursor(cursor);
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);

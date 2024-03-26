@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entities.Aim;
 import entities.Panzer;
 
 public class Game extends JPanel implements Runnable{
@@ -28,6 +29,7 @@ public class Game extends JPanel implements Runnable{
 	public Panzer player = new Panzer(this, screenWidth/2, screenHeight/2, 4);
 	Thread gameThread;
 	KeyHandler keyH = new KeyHandler(this, player);
+	MouseHandler mouse = new MouseHandler(this, player);
 	
 	public Game(){
 		
@@ -35,6 +37,7 @@ public class Game extends JPanel implements Runnable{
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
+		this.addMouseMotionListener(mouse);
 		this.setFocusable(true);
 	}
 	
