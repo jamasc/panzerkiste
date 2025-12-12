@@ -36,7 +36,11 @@ public class GameBox {
 	 */
 	public void update() {
 		disposeDead();
-		this.forEachDynamic(obj -> obj.move());
+		this.forEach(o -> {
+			if (o instanceof DynamicObject) {
+				((DynamicObject) o).move();
+			}
+		})
 	}
 	
 	/**
@@ -65,10 +69,6 @@ public class GameBox {
 	}
 	
 	private void forEach(Consumer<GameObject> action) {
-		dynamics.forEach(action);
-	}
-	
-	private void forEachDynamic(Consumer<DynamicObject> action) {
 		dynamics.forEach(action);
 	}
 
