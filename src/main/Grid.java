@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Grid extends GameObject {
@@ -12,6 +13,7 @@ public class Grid extends GameObject {
 	public void draw(Graphics2D g) {
 		int unten = Properties.SCREEN_HEIGTH;
 		int rechts = Properties.SCREEN_WIDTH;
+		g.setColor(Color.CYAN);
 		for (int x = 0; x <= Properties.HORIZONTAL_NUMBER_OF_TILES; x++) {
 			int xp = x*Properties.TILE_SIZE;
 			g.drawLine(xp, 0, xp, unten);

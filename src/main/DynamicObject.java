@@ -1,4 +1,5 @@
 package main;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
@@ -42,10 +43,13 @@ public abstract class DynamicObject extends GameObject{
 
 	@Override
 	public void draw(Graphics2D g) {
-		int r = this.hitboxRadius;
-		int x = this.getX();
-		int y = this.getY();
-		g.drawOval(x-r, y-r, 2*r, 2*r);
+		if (Properties.DEBUG_MODE) {
+			int r = this.hitboxRadius;
+			int x = this.getX();
+			int y = this.getY();
+			g.setColor(Color.RED);
+			g.drawOval(x-r, y-r, 2*r, 2*r);
+		}
 	}
 	
 	public int getX() {

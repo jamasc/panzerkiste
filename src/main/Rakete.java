@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Rakete extends DynamicObject {
@@ -11,12 +12,13 @@ public class Rakete extends DynamicObject {
 
 	@Override
 	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
-		super.draw(g);
 		int r = Properties.RAKETE_HITBOX_RADIUS;
 		int x = super.getX();
 		int y = super.getY();
-		g.drawRect(x - 3*r, y-r, 3*r, 2*r);
+		g.setColor(Color.WHITE);
+		g.fillRect(x - 3*r, y-r, 3*r, 2*r);
+		g.fillOval(x-r, y-r, 2*r, 2*r);
+		super.draw(g);
 	}
 
 }

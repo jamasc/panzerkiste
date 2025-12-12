@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Panzer extends DynamicObject {
@@ -11,13 +12,13 @@ public class Panzer extends DynamicObject {
 
 	@Override
 	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
-		super.draw(g);
-		int r = super.getHitboxRadius();
+		int r = Properties.PANZER_HITBOX_RADIUS;
 		int x = super.getX() - r;
 		int y = super.getY() - r;
 		int size = 2 * r;
-		g.drawRect(x, y, size, size);
+		g.setColor(Color.white);
+		g.fillRect(x, y, size, size);
+		super.draw(g);
 	}
 	
 	

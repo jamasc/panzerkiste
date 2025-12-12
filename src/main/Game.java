@@ -72,6 +72,7 @@ public class Game {
 		
 		int s = Properties.HALF_UNIT;
 		int r = 10*s;
+		kiste.add(new Wall(r,7*r,10*r,Direction.NORTH));
 		kiste.add(new Panzer(3*r,3*r));
 		kiste.add(new Panzer(29*r,3*r));
 		kiste.add(new Rakete(5*r, 5*r));
