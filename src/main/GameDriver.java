@@ -17,6 +17,9 @@ public class GameDriver implements Runnable{
 	private boolean enabled;
 	private boolean running;
 	
+	private long frameCount;
+	private long startTime;
+	
 
 	public GameDriver(GameBox kiste, Panel screen) {
 		enabled = false;
@@ -53,12 +56,24 @@ public class GameDriver implements Runnable{
 	
 	private void updateLoop() throws InterruptedException {
 		running = true;
+		startTime = System.currentTimeMillis();
 		while(enabled) {
+			frameCount++;
 			target.update();
 			graphicTarget.repaint();
-			Thread.sleep(100);
+			Thread.sleep(sleepTime());
 		}
 		running = false;
+	}
+	
+	private long sleepTime() {
+		long endTime = this.startTime + frameCount*Properties.MILLIS_PER_FRAME;
+		long pufferTime = endTime - System.currentTimeMillis();
+		if (pufferTime >= 0) {
+			return pufferTime;
+		} else {
+			return 0;
+		}
 	}
 
 }

@@ -1,5 +1,8 @@
 package main;
 import java.awt.Dimension;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -64,6 +67,17 @@ public class Game {
 
 	private void setupKiste() {
 		this.kiste = new GameBox();
+		
+		kiste.add(new Grid());
+		
+		int s = Properties.HALF_UNIT;
+		int r = 10*s;
+		kiste.add(new Panzer(3*r,3*r));
+		kiste.add(new Panzer(29*r,3*r));
+		kiste.add(new Rakete(5*r, 5*r));
+		Rakete r1 = new Rakete(5*r,3*r);
+		r1.setVelocity(Properties.MAX_VELOCITY);
+		kiste.add(r1);
 	}
 
 	private void setupDriver() {
@@ -72,7 +86,7 @@ public class Game {
 
 	private void setupScreen() {
 		this.screen = new Panel(kiste);
-		screen.setPreferredSize(new Dimension(600, 400));
+		screen.setPreferredSize(new Dimension(Properties.SCREEN_WIDTH, Properties.SCREEN_HEIGTH));
 	}
 
 
@@ -91,6 +105,10 @@ public class Game {
 		frame.setVisible(true);
 
 		game.startGame();
+		
+		ScheduledExecutorService executor =
+		        Executors.newSingleThreadScheduledExecutor();
+		executor.schedule(() -> game.stopGame(), 2, TimeUnit.SECONDS); // 2 Sekunden warten
 
 	}
 

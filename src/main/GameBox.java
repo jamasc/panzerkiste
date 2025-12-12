@@ -1,5 +1,5 @@
 package main;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class GameBox {
 	
 	private ArrayList<DynamicObject> dynamics;
+	private ArrayList<GameObject> statics;
 
 	
 	public GameBox() {
@@ -40,14 +41,14 @@ public class GameBox {
 			if (o instanceof DynamicObject) {
 				((DynamicObject) o).move();
 			}
-		})
+		});
 	}
 	
 	/**
 	 * Zeichnet alles
 	 * @param g
 	 */
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		this.forEach(o -> o.draw(g));
 	}
 	
@@ -55,21 +56,24 @@ public class GameBox {
 		if (obj instanceof DynamicObject) {
 			dynamics.add((DynamicObject) obj);
 		} else {
-			throw new IllegalArgumentException("Unknown GameObject");
+			statics.add(obj);
 		}
 	}
 	
 	
 	private void init() {
 		this.dynamics = new ArrayList<DynamicObject>();
+		this.statics = new ArrayList<GameObject>();
 	}
 	
 	private void disposeDead() {
 		dynamics.removeIf(o -> o.isDead());
+		statics.removeIf(o -> o.isDead());
 	}
 	
 	private void forEach(Consumer<GameObject> action) {
 		dynamics.forEach(action);
+		statics.forEach(action);
 	}
 
 }
