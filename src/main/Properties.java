@@ -8,7 +8,8 @@ public class Properties {
 	public static final int UNIT = 2*HALF_UNIT;
 	
 	//GameBox
-	public static final int TILE_SIZE = 10*UNIT;
+	public static final int UNITS_PER_TILE = 10;
+	public static final int TILE_SIZE = UNITS_PER_TILE*UNIT;
 	public static final int HORIZONTAL_NUMBER_OF_TILES = 16;
 	public static final int VERTICAL_NUMBER_OF_TILES = 9;
 	public static final int IMAGE_WIDTH = TILE_SIZE * HORIZONTAL_NUMBER_OF_TILES;

@@ -2,9 +2,9 @@ package main;
 
 enum State {
 	
-	BUILDING,
+	LOADING,
 	RUNNING,
-	PAUSING,
+	STANDBY,
 	OVER;
 
 }

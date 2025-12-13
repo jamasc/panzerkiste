@@ -33,8 +33,14 @@ public abstract class DynamicObject extends GameObject{
 		y = y + dy;
 	}
 	
-	public void setVelocity(int velocity) {
-		this.velocity = velocity;
+	public void setVelocity(double velocity) {
+		if (velocity < 0) {
+			this.velocity = 0;
+		} else if (velocity > Properties.MAX_VELOCITY) {
+			this.velocity = Properties.MAX_VELOCITY;
+		} else {
+			this.velocity = velocity;
+		}
 	}
 	
 	public void setDirection(int direction) {

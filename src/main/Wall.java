@@ -5,36 +5,25 @@ import java.awt.Graphics2D;
 
 public class Wall extends GameObject {
 
-	private double direction; //facing the wall
-	private int distance; //to 0
-	private int closeCorner;
-	private int farCorner;
+	private int x;
+	private int y; //center coordinates
+	private double direction; //blocked direction, facing the wall
+	private int radius;
+	private boolean horizontal;
 	
-	private int x1;
-	private int x2;
-	private int y1;
-	private int y2;
-	
-	public Wall(int x, int y, int length, Direction blockedDirection) {
+	public Wall(int x, int y, int lengthUnits, Direction blockedDirection) {
 		this.direction = blockedDirection.getDirection();
+		radius = lengthUnits * Properties.HALF_UNIT;
 		switch (blockedDirection) {
 		case NORTH, SOUTH:
-			distance = y;
-			closeCorner = x;
-			farCorner = x + length;
-			x1=closeCorner;
-			x2=farCorner;
-			y1=distance;
-			y2=distance;
+			this.horizontal = true;
+			this.x = x + radius;
+			this.y = y;
 			break;
 		case EAST, WEST:
-			distance = x;
-			closeCorner = y;
-			farCorner = y + length;
-			x1=distance;
-			x2=distance;
-			y1=closeCorner;
-			y2=closeCorner;
+			this.horizontal = false;
+			this.x = x;
+			this.y = y + radius;
 			break;
 		}
 	}
@@ -43,12 +32,12 @@ public class Wall extends GameObject {
 	public void draw(Graphics2D g) {
 		if (Properties.DEBUG_MODE) {
 			g.setColor(Color.RED);
-			g.drawLine(x1, y1, x2, y2);
-		} else {
-			g.setColor(Color.WHITE);
-			g.drawLine(x1, y1, x2, y2);
+			if (horizontal) {
+				g.drawLine(x-radius, y, x+radius, y);
+			}else {
+				g.drawLine(x, y-radius, x, y+radius);
+			}
 		}
-		
 	}
 
 }

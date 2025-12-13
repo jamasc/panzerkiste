@@ -2,30 +2,29 @@ package main;
 
 /**
  * 
- * Gibt der GameBox einen regelmäßigen Updateimpuls auf einem extra Thread.
- * Gibt einem Panel einen regelmäßigen repaint Impuls.
+ * Gibt dem target einen regelmäßigen tick
  * 
  * @author Arne
  *
  */
 public class GameDriver implements Runnable{
 	
-	private GameBox target;
-	private Panel graphicTarget;
+	private Game target;
 	private Thread gameThread;
 	
 	private boolean enabled;
 	private boolean running;
+	private boolean delayed;
 	
 	private long frameCount;
 	private long startTime;
 	
 
-	public GameDriver(GameBox kiste, Panel screen) {
+	public GameDriver(Game target) {
 		enabled = false;
 		running = false;
-		this.target = kiste;
-		this.graphicTarget = screen;
+		delayed = false;
+		this.target = target;
 	}
 	
 	
@@ -59,8 +58,7 @@ public class GameDriver implements Runnable{
 		startTime = System.currentTimeMillis();
 		while(enabled) {
 			frameCount++;
-			target.update();
-			graphicTarget.repaint();
+			target.tick();
 			Thread.sleep(sleepTime());
 		}
 		running = false;
@@ -72,6 +70,7 @@ public class GameDriver implements Runnable{
 		if (pufferTime >= 0) {
 			return pufferTime;
 		} else {
+			delayed = true;
 			return 0;
 		}
 	}

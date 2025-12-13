@@ -12,17 +12,18 @@ import javax.swing.WindowConstants;
  * Stellt das ganze Spiel dar.
  * Baut sich selber auf.
  * Kann gestartet und pausiert werden.
- * Enth‰lt eine GameBox und einen GameDriver
- *
+ * Enth‰lt eine GameBox und einen GameDriver und ein Panel;
+ * Laufende Zeit heiﬂt, dass tick aufgerufen wird.
+ * 
  *
  * @author Arne
  *
  */
 public class Game {
 
-	private GameBox kiste;
-	private GameDriver driver;
-	private Panel screen;
+	private GameBox kiste; //Spiel Kiste
+	private GameDriver driver; //sendet ticks
+	private Panel screen; //visueller Output
 
 	private State state;
 
@@ -32,20 +33,37 @@ public class Game {
 	 */
 	public Game() {
 		this.init();
+		this.load();
 	}
 
 
 	public void startGame() {
-		if (state == State.PAUSING) {
+		switch (this.state) {
+		case STANDBY:
 			driver.start();
 			state = State.RUNNING;
+			break;
 		}
 	}
 
 	public void stopGame() {
-		if (state == State.RUNNING) {
+		switch (this.state) {
+		case RUNNING:
 			driver.stop();
-			state = State.PAUSING;
+			state = State.STANDBY;
+			break;
+		}
+	}
+	
+	/**
+	 * Wird, wenn das Spiel l‰uft, mit der Frequenz FPS aufgerufen
+	 */
+	public void tick() {
+		switch (this.state) {
+		case RUNNING:
+			this.kiste.update();
+			this.screen.repaint();
+			break;
 		}
 	}
 
@@ -58,36 +76,32 @@ public class Game {
 	 * Initialisiert alle Attribute
 	 */
 	private void init() {
-		this.state = State.BUILDING;
-		this.setupKiste();
+		this.state = State.LOADING;
 		this.setupScreen();
 		this.setupDriver();
-		this.state = State.PAUSING;
+	}
+	
+	/**
+	 * wird aufgerufen, wenn das Spiel etwas neues laden soll
+	 * danach soll das Spiel im state STANDBY sein.
+	 */
+	private void load() {
+		state = State.LOADING;
+		setupKiste();
+		state = State.STANDBY;
 	}
 
 	private void setupKiste() {
-		this.kiste = new GameBox();
-		
-		kiste.add(new Grid());
-		
-		int s = Properties.HALF_UNIT;
-		int r = 10*s;
-		kiste.add(new Wall(r,7*r,10*r,Direction.NORTH));
-		kiste.add(new Panzer(3*r,3*r));
-		kiste.add(new Panzer(29*r,3*r));
-		kiste.add(new Rakete(5*r, 5*r));
-		Rakete r1 = new Rakete(5*r,3*r);
-		r1.setVelocity(Properties.MAX_VELOCITY);
-		kiste.add(r1);
+		this.kiste = new TestLevel();
+		screen.show(kiste);
 	}
 
 	private void setupDriver() {
-		this.driver = new GameDriver(kiste, screen);
+		this.driver = new GameDriver(this);
 	}
 
 	private void setupScreen() {
-		this.screen = new Panel(kiste);
-		screen.setPreferredSize(new Dimension(Properties.SCREEN_WIDTH, Properties.SCREEN_HEIGTH));
+		this.screen = new Panel();
 	}
 
 
