@@ -52,4 +52,20 @@ public class CategorizedArrayList {
 		lists.forEach(l -> l.removeIf(filter));
 	}
 	
+	public ArrayList<? extends GameObject> getAll(GameObjectType type) {
+		switch (type) {
+		case NOTYPE:
+			return rest;
+		case PANZER:
+			return panzer;
+		case RAKETE:
+			return raketen;
+		case WALL:
+			return walls;
+		default:
+			System.out.println("CategorizedArrayList.getAll(GameObjectType): Für diesen GameObjectType ist keine case vorhanden");
+			return null;
+		}
+	}
+	
 }

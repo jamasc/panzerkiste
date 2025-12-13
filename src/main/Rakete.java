@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 public class Rakete extends DynamicObject {
 
 	public Rakete(int x, int y) {
-		super(x, y, Properties.RAKETE_HITBOX_RADIUS);
+		super(x, y, Properties.RAKETE_HITBOX_RADIUS, GameObjectType.RAKETE);
 		// TODO Auto-generated constructor stub
 	}
 

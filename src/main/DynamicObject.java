@@ -18,7 +18,8 @@ public abstract class DynamicObject extends GameObject{
 	private double velocity;
 	private double direction; //in radians, 0 is east, clockwise
 
-	public DynamicObject(int x, int y, int radius) {
+	public DynamicObject(int x, int y, int radius, GameObjectType type) {
+		super(type);
 		this.x = x;
 		this.y = y;
 		this.hitboxRadius = radius;

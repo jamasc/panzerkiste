@@ -11,10 +11,8 @@ public class TestLevel extends GameBox {
 		int unit = Properties.UNIT;
 		int tile = 10*unit;
 		
-		Panzer p1 = new Panzer(1,1);
-		Panzer p2 = new Panzer(16,9);
+		Panzer p1 = new Panzer(5*unit,5*unit);
 		this.add(p1);
-		this.add(p2);
 	}
 
 }

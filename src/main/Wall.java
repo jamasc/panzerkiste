@@ -12,6 +12,7 @@ public class Wall extends GameObject {
 	private boolean horizontal;
 	
 	public Wall(int x, int y, int lengthUnits, Direction blockedDirection) {
+		super(GameObjectType.WALL);
 		this.direction = blockedDirection.getDirection();
 		radius = lengthUnits * Properties.HALF_UNIT;
 		switch (blockedDirection) {

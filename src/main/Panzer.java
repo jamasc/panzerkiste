@@ -5,10 +5,8 @@ import java.awt.Graphics2D;
 
 public class Panzer extends DynamicObject {
 
-	public Panzer(int xTile, int yTile) {
-		super(xTile*Properties.TILE_SIZE-Properties.HALF_UNIT*Properties.UNITS_PER_TILE,
-				yTile*Properties.TILE_SIZE-Properties.HALF_UNIT*Properties.UNITS_PER_TILE, 
-				Properties.PANZER_HITBOX_RADIUS);
+	public Panzer(int x, int y) {
+		super(x, y, Properties.PANZER_HITBOX_RADIUS, GameObjectType.PANZER);
 		// TODO Auto-generated constructor stub
 	}
 
