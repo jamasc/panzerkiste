@@ -13,9 +13,5 @@ public abstract class GameObject {
 	public boolean isDead() {
 		return false;
 	}
-	
-	public GameObjectType getType() {
-		return this.type;
-	}
 
 }
