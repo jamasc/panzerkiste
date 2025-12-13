@@ -65,7 +65,7 @@ public class GameDriver implements Runnable{
 	}
 	
 	private long sleepTime() {
-		long endTime = this.startTime + frameCount*Properties.MILLIS_PER_FRAME;
+		long endTime = this.startTime + frameCount*Config.MILLIS_PER_FRAME;
 		long pufferTime = endTime - System.currentTimeMillis();
 		if (pufferTime >= 0) {
 			return pufferTime;

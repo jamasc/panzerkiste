@@ -37,8 +37,8 @@ public abstract class DynamicObject extends GameObject{
 	public void setVelocity(double velocity) {
 		if (velocity < 0) {
 			this.velocity = 0;
-		} else if (velocity > Properties.MAX_VELOCITY) {
-			this.velocity = Properties.MAX_VELOCITY;
+		} else if (velocity > Config.MAX_VELOCITY) {
+			this.velocity = Config.MAX_VELOCITY;
 		} else {
 			this.velocity = velocity;
 		}
@@ -50,7 +50,7 @@ public abstract class DynamicObject extends GameObject{
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (Properties.DEBUG_MODE) {
+		if (Config.DEBUG_MODE) {
 			int r = this.hitboxRadius;
 			int x = this.getX();
 			int y = this.getY();

@@ -6,13 +6,13 @@ import java.awt.Graphics2D;
 public class Rakete extends DynamicObject {
 
 	public Rakete(int x, int y) {
-		super(x, y, Properties.RAKETE_HITBOX_RADIUS, GameObjectType.RAKETE);
+		super(x, y, Config.RAKETE_HITBOX_RADIUS, GameObjectType.RAKETE);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		int r = Properties.RAKETE_HITBOX_RADIUS;
+		int r = Config.RAKETE_HITBOX_RADIUS;
 		int x = super.getX();
 		int y = super.getY();
 		g.setColor(Color.WHITE);

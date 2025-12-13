@@ -33,8 +33,8 @@ public class Panel extends JPanel {
 
 	
 	private void init() {
-		setPreferredSize(new Dimension(Properties.SCREEN_WIDTH, Properties.SCREEN_HEIGTH));
-		this.image = new BufferedImage(Properties.IMAGE_WIDTH, Properties.IMAGE_HEIGTH, BufferedImage.TYPE_INT_ARGB);
+		setPreferredSize(new Dimension(Config.SCREEN_WIDTH, Config.SCREEN_HEIGTH));
+		this.image = new BufferedImage(Config.IMAGE_WIDTH, Config.IMAGE_HEIGTH, BufferedImage.TYPE_INT_ARGB);
 	}
 
 	@Override

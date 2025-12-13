@@ -14,7 +14,7 @@ public class Wall extends GameObject {
 	public Wall(int x, int y, int lengthUnits, Direction blockedDirection) {
 		super(GameObjectType.WALL);
 		this.direction = blockedDirection.getDirection();
-		radius = lengthUnits * Properties.HALF_UNIT;
+		radius = lengthUnits * Config.HALF_UNIT;
 		switch (blockedDirection) {
 		case NORTH, SOUTH:
 			this.horizontal = true;
@@ -31,7 +31,7 @@ public class Wall extends GameObject {
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (Properties.DEBUG_MODE) {
+		if (Config.DEBUG_MODE) {
 			g.setColor(Color.RED);
 			if (horizontal) {
 				g.drawLine(x-radius, y, x+radius, y);

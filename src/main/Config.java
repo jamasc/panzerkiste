@@ -1,6 +1,6 @@
 package main;
 
-public class Properties {
+public class Config {
 	
 	public static final boolean DEBUG_MODE = true;
 	
@@ -20,7 +20,7 @@ public class Properties {
 	public static final int SCREEN_WIDTH = (int)(IMAGE_WIDTH * ZOOM_FACTOR);
 	public static final int SCREEN_HEIGTH = (int)(IMAGE_HEIGTH * ZOOM_FACTOR);
 	
-	//GameObject Properties
+	//GameObject Config
 	public static final int PANZER_HITBOX_RADIUS = 4*UNIT;
 	public static final int RAKETE_HITBOX_RADIUS = HALF_UNIT;
 	public static final int MAX_VELOCITY = UNIT;
