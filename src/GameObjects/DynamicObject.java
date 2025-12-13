@@ -1,6 +1,8 @@
-package main;
+package GameObjects;
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import main.Config;
 
 /**
  * 

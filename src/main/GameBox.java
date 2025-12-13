@@ -5,6 +5,9 @@ import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 
+import GameObjects.DynamicObject;
+import GameObjects.GameObject;
+
 /**
  * 
  * Hält viele GameObjects und kann diese um einen Zeitschritt bewegen,

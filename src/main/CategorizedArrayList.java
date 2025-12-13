@@ -5,6 +5,12 @@ import java.util.EnumMap;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import GameObjects.GameObject;
+import GameObjects.GameObjectType;
+import GameObjects.Panzer;
+import GameObjects.Rakete;
+import GameObjects.Wall;
+
 public class CategorizedArrayList {
 	
 	private ArrayList<ArrayList<? extends GameObject>> lists;

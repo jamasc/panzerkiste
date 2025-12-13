@@ -1,5 +1,7 @@
 package main;
 
+import GameObjects.Panzer;
+
 public class TestLevel extends GameBox {
 
 	public TestLevel() {
