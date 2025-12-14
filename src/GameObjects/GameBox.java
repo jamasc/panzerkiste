@@ -102,8 +102,8 @@ public class GameBox {
 				Panzer p1 = list.get(i);
 				Panzer p2 = list.get(j);
 				if (areColliding(p1, p2)) {
-					p1.blockDirection(p1.getDirectionOf(p2));
-					p2.blockDirection(p2.getDirectionOf(p1));
+					p1.blockDirection(p1.getDirectionTo(p2));
+					p2.blockDirection(p2.getDirectionTo(p1));
 				}
 			}
 		}

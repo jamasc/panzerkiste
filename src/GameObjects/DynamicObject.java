@@ -92,7 +92,7 @@ public abstract class DynamicObject extends GameObject{
 		return this.direction;
 	}
 	
-	public double getDirectionOf(DynamicObject obj) {
+	public double getDirectionTo(DynamicObject obj) {
 		Vector v = Vector.with(obj.getX()-this.getX(), obj.getY()-this.getY());
 		return v.getDirection();
 	}
