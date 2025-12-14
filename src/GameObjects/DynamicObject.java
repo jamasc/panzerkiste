@@ -1,6 +1,7 @@
 package GameObjects;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import main.Config;
 
@@ -19,12 +20,15 @@ public abstract class DynamicObject extends GameObject{
 	
 	private double velocity;
 	private double direction; //in radians, 0 is east, clockwise
+	
+	private ArrayList<Double> blockedDirections;
 
 	public DynamicObject(int x, int y, int radius, GameObjectType type) {
 		super(type);
 		this.x = x;
 		this.y = y;
 		this.hitboxRadius = radius;
+		this.blockedDirections = new ArrayList<Double>();
 	}
 	
 	public void move() {
@@ -71,6 +75,10 @@ public abstract class DynamicObject extends GameObject{
 
 	public int getHitboxRadius() {
 		return this.hitboxRadius;
+	}
+	
+	private static double blockDirection(double direction, double block) {
+		
 	}
 
 }

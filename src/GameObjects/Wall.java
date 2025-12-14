@@ -11,23 +11,21 @@ public class Wall extends GameObject {
 	private int x;
 	private int y; //center coordinates
 	private double direction; //blocked direction, facing the wall
-	private int radius;
-	private boolean horizontal;
+	private int radius; //wall spreads this much from center coordinates
+	private boolean vertical; //false if wall is horizontal, true if vertical
 	
-	public Wall(int x, int y, int lengthUnits, Direction blockedDirection) {
+	public Wall(int x, int y, int radius, Direction blockedDirection) {
 		super(GameObjectType.WALL);
 		this.direction = blockedDirection.getDirection();
-		radius = lengthUnits * Config.HALF_UNIT;
+		this.radius = radius;
+		this.x = x;
+		this.y = y;
 		switch (blockedDirection) {
 		case NORTH, SOUTH:
-			this.horizontal = true;
-			this.x = x + radius;
-			this.y = y;
+			vertical = false;
 			break;
 		case EAST, WEST:
-			this.horizontal = false;
-			this.x = x;
-			this.y = y + radius;
+			vertical = true;
 			break;
 		}
 	}
@@ -36,12 +34,36 @@ public class Wall extends GameObject {
 	public void draw(Graphics2D g) {
 		if (Config.DEBUG_MODE) {
 			g.setColor(Color.RED);
-			if (horizontal) {
+			if (!vertical) {
 				g.drawLine(x-radius, y, x+radius, y);
 			}else {
 				g.drawLine(x, y-radius, x, y+radius);
 			}
 		}
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getRadius() {
+		return radius;
+	}
+	
+	public double getBlockedDirection() {
+		return direction;
+	}
+	
+	public boolean isVertical() {
+		return vertical;
+	}
+	
+	public boolean isHorizontal() {
+		return !vertical;
 	}
 
 }

@@ -39,14 +39,22 @@ public class CategorizedArrayList {
 	}
 
 	public void add(GameObject e) {
-		if (e instanceof Panzer) {
-			panzer.add((Panzer)e);
-		} else if (e instanceof Rakete) {
-			raketen.add((Rakete)e);
-		} else if (e instanceof Wall) {
-			walls.add((Wall)e);
-		} else {
+		switch (e.getType()) {
+		case NOTYPE:
 			rest.add(e);
+			break;
+		case PANZER:
+			panzer.add((Panzer)e);
+			break;
+		case RAKETE:
+			raketen.add((Rakete)e);
+			break;
+		case WALL:
+			walls.add((Wall)e);
+			break;
+		default:
+			System.out.println("CategorizedArrayList.add(GameObject): Für diesen GameObjectType ist kein case vorhanden");
+			break;
 		}
 	}
 	
@@ -69,7 +77,7 @@ public class CategorizedArrayList {
 		case WALL:
 			return walls;
 		default:
-			System.out.println("CategorizedArrayList.getAll(GameObjectType): Für diesen GameObjectType ist keine case vorhanden");
+			System.out.println("CategorizedArrayList.getAll(GameObjectType): Für diesen GameObjectType ist kein case vorhanden");
 			return null;
 		}
 	}
