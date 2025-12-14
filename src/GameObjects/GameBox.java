@@ -90,30 +90,81 @@ public class GameBox {
 	}
 	
 	private void doPanzerPanzer() {
-		
+		ArrayList<Panzer> list = (ArrayList<Panzer>)objects.getAll(GameObjectType.PANZER);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i+1; j < list.size(); j++) {
+				Panzer p1 = list.get(i);
+				Panzer p2 = list.get(j);
+				if (areColliding(p1, p2)) {
+					p1.blockDirection(p1.getDirectionOf(p2));
+					p2.blockDirection(p2.getDirectionOf(p1));
+				}
+			}
+		}
 	}
 	
 	private void doPanzerWalls() {
-		
+		ArrayList<Panzer> panzer = (ArrayList<Panzer>)objects.getAll(GameObjectType.PANZER);
+		ArrayList<Wall> walls = (ArrayList<Wall>)objects.getAll(GameObjectType.WALL);
+		for (Panzer p : panzer) {
+			for (Wall w : walls) {
+				if (this.areColliding(p, w)) {
+					p.blockDirection(w.getBlockedDirection());
+				}
+			}
+		}
 	}
 	
 	private void doRaketenRaketen() {
-		
+		ArrayList<Rakete> list = (ArrayList<Rakete>)objects.getAll(GameObjectType.RAKETE);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i+1; j < list.size(); j++) {
+				Rakete p1 = list.get(i);
+				Rakete p2 = list.get(j);
+				if (areColliding(p1, p2)) {
+					p1.die();
+					p2.die();
+				}
+			}
+		}
 	}
 	
 	private void doRaketenPanzer() {
-		
+		ArrayList<Panzer> panzer = (ArrayList<Panzer>)objects.getAll(GameObjectType.PANZER);
+		ArrayList<Rakete> raketen = (ArrayList<Rakete>)objects.getAll(GameObjectType.RAKETE);
+		for (Panzer p : panzer) {
+			for (Rakete r : raketen) {
+				if (this.areColliding(p, r)) {
+					p.die();
+					r.die();
+					System.out.println("GameBox.doRaketenPanzer: Panzer(x=" + p.getX() + "; y=" + p.getY() + "; r="
+							+ p.getHitboxRadius() + ") kolldidiert mit Rakete(x=" + r.getX() + "; y=" + r.getY()
+							+ "; r=" + r.getHitboxRadius() + ")");
+				}
+			}
+		}
 	}
 	
 	private void doRaketenWalls() {
-		
+		ArrayList<Rakete> raketen = (ArrayList<Rakete>)objects.getAll(GameObjectType.RAKETE);
+		ArrayList<Wall> walls = (ArrayList<Wall>)objects.getAll(GameObjectType.WALL);
+		for (Rakete r : raketen) {
+			for (Wall w : walls) {
+				if (this.areColliding(r, w)) {
+					r.bounce(w.getBlockedDirection());
+					System.out.println("GameBox.doRaketenWalls: Rakete(x=" + r.getX() + "; y=" + r.getY() + "; r=" + r.getHitboxRadius()
+					+ ") bounct an Wall(x=" + w.getX());
+				}
+			}
+		}
 	}
 	
 	private boolean areColliding(DynamicObject o1, DynamicObject o2) {
-		int a2 = (o1.getX()-o2.getX())^2;
-		int b2 = (o1.getY()-o2.getY())^2;
+		double a2 = Math.pow(o1.getX()-o2.getX(),2);
+		double b2 = Math.pow(o1.getY()-o2.getY(),2);
 		double distance = Math.sqrt(a2+b2);
 		int minDistance = o1.getHitboxRadius()+o2.getHitboxRadius();
+		System.out.println("a2=" + a2 + ", b2=" + b2 + ", distance=" + distance);
 		return (distance <= minDistance);
 	}
 	
@@ -135,9 +186,9 @@ public class GameBox {
 			wx = w.getY();
 			wy = w.getX();
 		}
-		//senkrechte Wand
-		if (x >= wx-r && x <= wx+r) {
-			if (y >= wy-wr-r && y <= wy+wr+r) {
+		//waagrechte Wand
+		if (y >= wy-r && y <= wy+r) {
+			if (x >= wx-wr-r && x <= wx+wr+r) {
 				return true;
 			}
 		}

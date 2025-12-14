@@ -125,7 +125,7 @@ public class Game {
 		
 		ScheduledExecutorService executor =
 		        Executors.newSingleThreadScheduledExecutor();
-		executor.schedule(() -> game.stopGame(), 2, TimeUnit.SECONDS); // 2 Sekunden warten
+		//executor.schedule(() -> game.stopGame(), 5, TimeUnit.SECONDS); // 2 Sekunden warten
 
 	}
 
