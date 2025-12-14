@@ -22,8 +22,9 @@ public class GameBox {
 	private ArrayList<GameObject> statics;
 	
 	private CategorizedArrayList objects;
-
 	
+	private Finish finish;
+
 	public GameBox() {
 		init();
 	}
@@ -69,9 +70,14 @@ public class GameBox {
 		objects.add(obj);
 	}
 	
+	public Finish getFinish() {
+		return finish;
+	}
+	
 	
 	private void init() {
 		this.objects = new CategorizedArrayList();
+		this.finish = Finish.NOTFINISHED;
 	}
 	
 	private void disposeDead() {
@@ -137,9 +143,6 @@ public class GameBox {
 				if (this.areColliding(p, r)) {
 					p.die();
 					r.die();
-					System.out.println("GameBox.doRaketenPanzer: Panzer(x=" + p.getX() + "; y=" + p.getY() + "; r="
-							+ p.getHitboxRadius() + ") kolldidiert mit Rakete(x=" + r.getX() + "; y=" + r.getY()
-							+ "; r=" + r.getHitboxRadius() + ")");
 				}
 			}
 		}
@@ -152,8 +155,6 @@ public class GameBox {
 			for (Wall w : walls) {
 				if (this.areColliding(r, w)) {
 					r.bounce(w.getBlockedDirection());
-					System.out.println("GameBox.doRaketenWalls: Rakete(x=" + r.getX() + "; y=" + r.getY() + "; r=" + r.getHitboxRadius()
-					+ ") bounct an Wall(x=" + w.getX());
 				}
 			}
 		}
@@ -164,7 +165,6 @@ public class GameBox {
 		double b2 = Math.pow(o1.getY()-o2.getY(),2);
 		double distance = Math.sqrt(a2+b2);
 		int minDistance = o1.getHitboxRadius()+o2.getHitboxRadius();
-		System.out.println("a2=" + a2 + ", b2=" + b2 + ", distance=" + distance);
 		return (distance <= minDistance);
 	}
 	
