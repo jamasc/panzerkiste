@@ -22,7 +22,6 @@ public class HitBox {
 	}
 	
 	
-	
 	public boolean hits(HitBox that) {
 		for (Shape a : this.construct) {
 			for (Shape b : that.construct) {
