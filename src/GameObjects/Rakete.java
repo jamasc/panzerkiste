@@ -11,6 +11,14 @@ public class Rakete extends DynamicObject {
 		super(x, y, Config.RAKETE_HITBOX_RADIUS, GameObjectType.RAKETE);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void bounce(double blockedDirection) {
+		Vector base = Vector.normVector(this.getDirection());
+		Vector correction = Vector.getPartFacing(base, blockedDirection);
+		correction.multiplyBy(-2);
+		base.add(correction);
+		this.setDirection(base.getDirection());
+	}
 
 	@Override
 	public void draw(Graphics2D g) {

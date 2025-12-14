@@ -36,8 +36,19 @@ public abstract class DynamicObject extends GameObject{
 		double dy = 0;
 		dx = velocity*Math.cos(direction);
 		dy = velocity*Math.sin(direction);
+		for (double block : blockedDirections) {
+			Vector d = Vector.with(dx,dy);
+			Vector correction = Vector.getPartFacing(d, block);
+			dx = dx - correction.x;
+			dy = dy - correction.y;
+		}
+		blockedDirections.clear();
 		x = x + dx;
 		y = y + dy;
+	}
+	
+	public void blockDirection(double block) {
+		blockedDirections.add(block);
 	}
 	
 	public void setVelocity(double velocity) {
@@ -50,7 +61,7 @@ public abstract class DynamicObject extends GameObject{
 		}
 	}
 	
-	public void setDirection(int direction) {
+	public void setDirection(double direction) {
 		this.direction = direction;
 	}
 
@@ -77,8 +88,13 @@ public abstract class DynamicObject extends GameObject{
 		return this.hitboxRadius;
 	}
 	
-	private static double blockDirection(double direction, double block) {
-		
+	public double getDirection() {
+		return this.direction;
+	}
+	
+	public double getDirectionOf(DynamicObject obj) {
+		Vector v = Vector.with(obj.getX()-this.getX(), obj.getY()-this.getY());
+		return v.getDirection();
 	}
 
 }
