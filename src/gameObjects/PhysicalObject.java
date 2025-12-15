@@ -1,6 +1,8 @@
-package GameObjects;
+package gameObjects;
 
 import java.awt.Graphics2D;
+
+import geometry.HitBox;
 
 public class PhysicalObject extends GameObject {
 	

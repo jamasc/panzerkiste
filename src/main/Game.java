@@ -7,8 +7,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import GameObjects.GameBox;
-
 /**
  *
  * Stellt das ganze Spiel dar.

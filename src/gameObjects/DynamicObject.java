@@ -1,8 +1,9 @@
-package GameObjects;
+package gameObjects;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import geometry.Vector;
 import main.Config;
 
 /**

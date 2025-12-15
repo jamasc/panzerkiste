@@ -1,4 +1,4 @@
-package GameObjects;
+package main;
 
 public enum Finish {
 

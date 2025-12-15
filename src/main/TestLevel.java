@@ -1,10 +1,9 @@
 package main;
 
-import GameObjects.GameBox;
-import GameObjects.Grid;
-import GameObjects.Panzer;
-import GameObjects.Rakete;
-import GameObjects.Wall;
+import gameObjects.Grid;
+import gameObjects.Panzer;
+import gameObjects.Rakete;
+import gameObjects.Wall;
 
 public class TestLevel extends GameBox {
 

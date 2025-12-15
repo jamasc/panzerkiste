@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import GameObjects.GameBox;
-
 /**
  * 
  * Stellt einen Bildschirm dar, welcher zu einer GameBox connected ist

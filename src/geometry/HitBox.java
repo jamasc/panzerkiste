@@ -1,4 +1,7 @@
-package GameObjects;
+package geometry;
+
+import gameObjects.DynamicObject;
+import gameObjects.PhysicalObject;
 
 /**
  * 

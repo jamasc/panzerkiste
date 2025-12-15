@@ -1,4 +1,4 @@
-package GameObjects;
+package geometry;
 
 public class Shape {
 

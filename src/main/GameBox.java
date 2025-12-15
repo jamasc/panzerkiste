@@ -1,4 +1,4 @@
-package GameObjects;
+package main;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
@@ -6,11 +6,17 @@ import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 
-import main.CategorizedArrayList;
+import gameObjects.CategorizedArrayList;
+import gameObjects.DynamicObject;
+import gameObjects.GameObject;
+import gameObjects.GameObjectType;
+import gameObjects.Panzer;
+import gameObjects.Rakete;
+import gameObjects.Wall;
 
 /**
  * 
- * Hält viele GameObjects und kann diese um einen Zeitschritt bewegen,
+ * Hält viele gameObjects und kann diese um einen Zeitschritt bewegen,
  * befolgt dabei aber Regeln und löst in den Objekten Events aus.
  * 
  * @author Arne

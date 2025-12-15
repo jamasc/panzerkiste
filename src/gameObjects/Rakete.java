@@ -1,8 +1,9 @@
-package GameObjects;
+package gameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import geometry.Vector;
 import main.Config;
 
 public class Rakete extends DynamicObject {
