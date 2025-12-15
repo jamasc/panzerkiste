@@ -10,6 +10,11 @@ public class Vector {
 		this.y = y;
 	}
 	
+	public Vector() {
+		this.x = 0;
+		this.y = 0;
+	}
+	
 	public Vector multiplyBy(double factor) {
 		return new Vector(x*factor,y*factor);
 	}
