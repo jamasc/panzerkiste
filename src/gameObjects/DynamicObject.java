@@ -38,7 +38,9 @@ public abstract class DynamicObject extends PhysicalObject{
 		Vector d = Vector.normVector(direction).multiplyBy(velocity);
 		for (double block : blockedDirections) {
 			Vector correction = Vector.getPartFacing(d, block);
-			d = d.add(correction.multiplyBy(-1));
+			if (correction.length() >= 0) {
+				d = d.add(correction.multiplyBy(-1));
+			}
 		}
 		blockedDirections.clear();
 		x = x + d.x;

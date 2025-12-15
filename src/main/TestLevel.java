@@ -27,7 +27,7 @@ public class TestLevel extends GameBox {
 		Wall w1 = new LinePiece(15*tile, 15*unit, tile, 0);
 		this.add(w1);
 		
-		this.add(new Grid());
+		//this.add(new Grid());
 	}
 
 }
