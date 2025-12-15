@@ -11,6 +11,7 @@ import gameObjects.DynamicObject;
 import gameObjects.GameObject;
 import gameObjects.GameObjectType;
 import gameObjects.Panzer;
+import gameObjects.PhysicalObject;
 import gameObjects.Rakete;
 import gameObjects.Wall;
 
@@ -23,9 +24,6 @@ import gameObjects.Wall;
  *
  */
 public class GameBox {
-	
-	private ArrayList<DynamicObject> dynamics;
-	private ArrayList<GameObject> statics;
 	
 	private CategorizedArrayList objects;
 	
@@ -166,39 +164,8 @@ public class GameBox {
 		}
 	}
 	
-	private boolean areColliding(DynamicObject o1, DynamicObject o2) {
-		double a2 = Math.pow(o1.getX()-o2.getX(),2);
-		double b2 = Math.pow(o1.getY()-o2.getY(),2);
-		double distance = Math.sqrt(a2+b2);
-		int minDistance = o1.getHitboxRadius()+o2.getHitboxRadius();
-		return (distance <= minDistance);
-	}
-	
-	private boolean areColliding(DynamicObject o, Wall w) {
-		int x;
-		int y;
-		int r = o.getHitboxRadius();
-		int wx;
-		int wy;
-		int wr = w.getRadius();
-		if (w.isHorizontal()) {
-			x = o.getX();
-			y = o.getY();
-			wx = w.getX();
-			wy = w.getY();
-		} else {
-			x = o.getY();
-			y = o.getX();
-			wx = w.getY();
-			wy = w.getX();
-		}
-		//waagrechte Wand
-		if (y >= wy-r && y <= wy+r) {
-			if (x >= wx-wr-r && x <= wx+wr+r) {
-				return true;
-			}
-		}
-		return false;
+	private boolean areColliding(PhysicalObject o1, PhysicalObject o2) {
+		return o1.getHitBox().hits(o2.getHitBox());
 	}
 
 }

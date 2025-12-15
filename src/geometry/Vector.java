@@ -80,7 +80,7 @@ public class Vector {
 	public static Vector getPartFacing(Vector base, double direction) {
 		Vector n = normVector(direction);
 		double factor = scalarProduct(base, n);
-		n.multiplyBy(factor);
+		n = n.multiplyBy(factor);
 		return n;
 	}
 	
@@ -94,7 +94,7 @@ public class Vector {
 	
 	public static Vector normVector(Vector v) {
 		Vector retour = Vector.with(v.x, v.y);
-		retour.multiplyBy(1/v.length());
+		retour = retour.multiplyBy(1/v.length());
 		return retour;
 	}
 

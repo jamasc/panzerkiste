@@ -1,6 +1,10 @@
 package geometry;
 
+import java.awt.Graphics2D;
+
 import gameObjects.DynamicObject;
+import gameObjects.EdgePiece;
+import gameObjects.LinePiece;
 import gameObjects.PhysicalObject;
 
 /**
@@ -15,15 +19,20 @@ public class HitBox {
 	
 	public Shape[] construct;
 
-	public HitBox(PhysicalObject root) {
-		System.out.println("HitBox.HitBox(PhysicalObject): Dieser Konstruktor sollte nicht aufgerufen werden!");
+	public HitBox(Shape[] construct) {
+		this.construct = construct;
 	}
 	
-	public HitBox(DynamicObject root) {
-		construct = new Shape[1];
-		construct[0] = new Circle(root.getX(), root.getY(), root.getHitboxRadius());
+	public HitBox(Shape shape) {
+		this.construct = new Shape[1];
+		construct[0] = shape;
 	}
 	
+	public void draw(Graphics2D g) {
+		for (Shape s : construct) {
+			s.draw(g);
+		}
+	}
 	
 	public boolean hits(HitBox that) {
 		for (Shape a : this.construct) {
@@ -37,7 +46,21 @@ public class HitBox {
 	}
 	
 	private boolean hitting(Shape a, Shape b) {
-		System.out.println("HitBox.hitting(Shape, Shape): Sollte nicht aufgerufen werden!");
+		if (a instanceof Circle) {
+			if (b instanceof Circle) {
+				return hitting((Circle)a, (Circle)b);
+			} else if (b instanceof Line) {
+				return hitting((Circle)a, (Line)b);
+			}
+		} else if (a instanceof Line) {
+			if (b instanceof Circle) {
+				return hitting((Line)a, (Circle)b);
+			} else if (b instanceof Line) {
+				System.out.println("HitBox.hitting(Shape,Shape): Line mit Line noch nicht implementiert!");
+				return false;
+			}
+		}
+		System.out.println("HitBox.hitting(Shape,Shape): Einer der beiden Shapes ist nicht erkennbar!");
 		return false;
 	}
 	
@@ -53,7 +76,7 @@ public class HitBox {
 		Vector v = Vector.with(c.x-l.x, c.y-l.y);
 		double dist = v.length();
 		Vector n = Vector.normVector(v.getDirection()-l.direction);
-		n.multiplyBy(dist);
+		n = n.multiplyBy(dist);
 		double x = n.x;
 		double y = n.y;
 		if (Math.abs(x) <= c.radius && Math.abs(y) <= l.radius) {

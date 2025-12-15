@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import geometry.Circle;
+import geometry.HitBox;
 import geometry.Vector;
 import main.Config;
 
@@ -13,7 +15,7 @@ import main.Config;
  * @author Arne
  *
  */
-public abstract class DynamicObject extends GameObject{
+public abstract class DynamicObject extends PhysicalObject{
 	
 	private double x;
 	private double y;
@@ -33,19 +35,14 @@ public abstract class DynamicObject extends GameObject{
 	}
 	
 	public void move() {
-		double dx = 0;
-		double dy = 0;
-		dx = velocity*Math.cos(direction);
-		dy = velocity*Math.sin(direction);
+		Vector d = Vector.normVector(direction).multiplyBy(velocity);
 		for (double block : blockedDirections) {
-			Vector d = Vector.with(dx,dy);
 			Vector correction = Vector.getPartFacing(d, block);
-			dx = dx - correction.x;
-			dy = dy - correction.y;
+			d = d.add(correction.multiplyBy(-1));
 		}
 		blockedDirections.clear();
-		x = x + dx;
-		y = y + dy;
+		x = x + d.x;
+		y = y + d.y;
 	}
 	
 	public void blockDirection(double block) {
@@ -65,17 +62,6 @@ public abstract class DynamicObject extends GameObject{
 	public void setDirection(double direction) {
 		this.direction = direction;
 	}
-
-	@Override
-	public void draw(Graphics2D g) {
-		if (Config.DEBUG_MODE) {
-			int r = this.hitboxRadius;
-			int x = this.getX();
-			int y = this.getY();
-			g.setColor(Color.RED);
-			g.drawOval(x-r, y-r, 2*r, 2*r);
-		}
-	}
 	
 	public int getX() {
 		return (int) x;
@@ -93,9 +79,15 @@ public abstract class DynamicObject extends GameObject{
 		return this.direction;
 	}
 	
-	public double getDirectionTo(DynamicObject obj) {
-		Vector v = Vector.with(obj.getX()-this.getX(), obj.getY()-this.getY());
-		return v.getDirection();
+	@Override
+	public HitBox getHitBox() {
+		return generateHitBox();
 	}
+	
+	private HitBox generateHitBox() {
+		Circle c = new Circle(this.getX(), this.getY(), this.getHitboxRadius());
+		return new HitBox(c);
+	}
+
 
 }
