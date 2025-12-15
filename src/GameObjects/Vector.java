@@ -2,22 +2,20 @@ package GameObjects;
 
 public class Vector {
 
-	public double x;
-	public double y;
+	public final double x;
+	public final double y;
 	
 	public Vector(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void multiplyBy(double factor) {
-		x = factor*x;
-		y = factor*y;
+	public Vector multiplyBy(double factor) {
+		return new Vector(x*factor,y*factor);
 	}
 	
-	public void add(Vector v) {
-		x = x + v.x;
-		y = y + v.y;
+	public Vector add(Vector v) {
+		return new Vector(x+v.x,y+v.y);
 	}
 	
 	public double length() {

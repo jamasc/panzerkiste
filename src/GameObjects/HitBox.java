@@ -13,7 +13,7 @@ public class HitBox {
 	public Shape[] construct;
 
 	public HitBox(PhysicalObject root) {
-		
+		System.out.println("HitBox.HitBox(PhysicalObject): Dieser Konstruktor sollte nicht aufgerufen werden!");
 	}
 	
 	public HitBox(DynamicObject root) {

@@ -15,8 +15,8 @@ public class Rakete extends DynamicObject {
 	public void bounce(double blockedDirection) {
 		Vector base = Vector.normVector(this.getDirection());
 		Vector correction = Vector.getPartFacing(base, blockedDirection);
-		correction.multiplyBy(-2);
-		base.add(correction);
+		correction = correction.multiplyBy(-2);
+		base = base.add(correction);
 		this.setDirection(base.getDirection());
 	}
 
