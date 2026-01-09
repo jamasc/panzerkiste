@@ -1,101 +1,130 @@
 package main;
-
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
-import entities.Panzer;
+/**
+ *
+ * Stellt das ganze Spiel dar.
+ * Baut sich selber auf.
+ * Kann gestartet und pausiert werden.
+ * Enthält eine GameBox und einen GameDriver und ein Panel;
+ * Laufende Zeit heißt, dass tick aufgerufen wird.
+ * 
+ *
+ * @author Arne
+ *
+ */
+public class Game {
 
-public class Game extends JPanel implements Runnable{
+	private GameBox kiste; //Spiel Kiste
+	private GameDriver driver; //sendet ticks
+	private Panel screen; //visueller Output
 
-	//screen settings
-	final int originalTileSize = 16;	//16x16 size
-	final int scale = 3;
-	
-	public final int tileSize = originalTileSize * scale;
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
-	public final int screenWidth = tileSize * maxScreenCol;
-	public final int screenHeight = tileSize * maxScreenRow;
-	
-	// FPS
-	int FPS = 60;
-	
-	//system
-	public Panzer player = new Panzer(this, screenWidth/2, screenHeight/2, 4);
-	Thread gameThread;
-	KeyHandler keyH = new KeyHandler(this, player);
-	MouseHandler mouse = new MouseHandler(this, player);
-	
-	public Game(){
-		
-		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
-		this.addKeyListener(keyH);
-		this.addMouseMotionListener(mouse);
-		this.setFocusable(true);
-	}
-	
-	public void setupGame() {
-		return;
+	private State state;
+
+
+	/**
+	 * Muss das Spiel startklar machen
+	 */
+	public Game() {
+		this.init();
+		this.load();
 	}
 
-	public void startGameThread() {
-		
-		gameThread = new Thread(this);
-		gameThread.start();
+
+	public void startGame() {
+		switch (this.state) {
+		case STANDBY:
+			driver.start();
+			state = State.RUNNING;
+			break;
+		}
 	}
-	
-	public void run() {
-		
-		double drawInterval = 1000000000/FPS;
-		double delta = 0;
-		long lastTime = System.nanoTime();
-		long currentTime;
-		long timer = 0;
-		int drawCount = 0;
-		
-		while(gameThread != null) {
-			
-			currentTime = System.nanoTime();
-			
-			delta += (currentTime - lastTime) / drawInterval;
-			timer += (currentTime - lastTime);
-			lastTime = currentTime;
-			
-			if(delta >= 1){
-				
-				update();
-				repaint();
-				delta--;
-				drawCount++;
-			}
-			
-			if(timer >= 1000000000) {
-//				System.out.println("FPS:" + drawCount);
-				drawCount = 0;
-				timer = 0;
-			}
+
+	public void stopGame() {
+		switch (this.state) {
+		case RUNNING:
+			driver.stop();
+			state = State.STANDBY;
+			break;
 		}
 	}
 	
-	public void update() {
-		
-		player.update();
+	/**
+	 * Wird, wenn das Spiel läuft, mit der Frequenz FPS aufgerufen
+	 */
+	public void tick() {
+		switch (this.state) {
+		case RUNNING:
+			this.kiste.update();
+			this.screen.repaint();
+			break;
+		}
+	}
+
+	public Panel getPanel() {
+		return screen;
+	}
+
+
+	/**
+	 * Initialisiert alle Attribute
+	 */
+	private void init() {
+		this.state = State.LOADING;
+		this.setupScreen();
+		this.setupDriver();
 	}
 	
-	public void paintComponent(Graphics g) {
-		
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		
-		//player
-		player.draw(g2);
-		
-		g2.dispose();
+	/**
+	 * wird aufgerufen, wenn das Spiel etwas neues laden soll
+	 * danach soll das Spiel im state STANDBY sein.
+	 */
+	private void load() {
+		state = State.LOADING;
+		setupKiste();
+		state = State.STANDBY;
 	}
+
+	private void setupKiste() {
+		this.kiste = new TestLevel();
+		screen.show(kiste);
+	}
+
+	private void setupDriver() {
+		this.driver = new GameDriver(this);
+	}
+
+	private void setupScreen() {
+		this.screen = new Panel();
+	}
+
+
+
+
+	public static void main(String[] args) {
+
+		Game game = new Game();
+		Panel screen = game.getPanel();
+		JFrame frame = new JFrame("Hello World");
+
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.add(screen);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+
+		game.startGame();
+		
+		ScheduledExecutorService executor =
+		        Executors.newSingleThreadScheduledExecutor();
+		//executor.schedule(() -> game.stopGame(), 5, TimeUnit.SECONDS); // 2 Sekunden warten
+
+	}
+
 }
